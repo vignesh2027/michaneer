@@ -82,7 +82,7 @@ All verified on 6 November 2026. Full citations live in `michaneer/sources.py` a
 
 ## Stack
 
-Python 3.12 with uv, FastAPI, Jinja2 server-rendered HTML, one CSS file, no client framework, a few lines of inline JS at most. SQLite for the local log. No LLM: every number is arithmetic on the user's own readings and published thresholds, so a model adds risk and no accuracy. No paid API, no network calls at runtime.
+Python 3.12 with uv, FastAPI, Jinja2 server-rendered HTML, one CSS file, no client framework, a few lines of inline JS at most. SQLite for the local log. Every number is plain arithmetic on the user's own readings and published thresholds, with nothing predicted or guessed. No paid API, no network calls at runtime.
 
 Theme: background #F4F9FF, surface #FFFFFF, primary #2563EB, text #0B1B33, accent deep violet #4C1D95, danger #9F1239.
 
