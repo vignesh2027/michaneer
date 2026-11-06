@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Sources | Michaneer{% endblock %}
+{% block content %}
+<p class="eyebrow">Every threshold, where it comes from</p>
+<h1>Sources</h1>
+<p class="lede">Michaneer uses no estimates of its own. Every limit and threshold below is from a published standard, notification, order or report, checked on 6 November 2026. The only household numbers are the ones you type in.</p>
+<section class="card">
+  <dl class="src">
+  {% for s in sources %}
+    <dt id="{{ s.id }}">{{ s.title }}</dt>
+    <dd>{{ s.publisher }}, {{ s.date }}. <a href="{{ s.url }}" rel="noopener">Link</a></dd>
+    <dd><b>Used for:</b> {{ s.used_for }}</dd>
+    {% if s.note %}<dd><b>Note:</b> {{ s.note }}</dd>{% endif %}
+  {% endfor %}
+  </dl>
+</section>
+{% endblock %}

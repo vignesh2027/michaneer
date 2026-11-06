@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Kitchen card | Michaneer{% endblock %}
+{% block content %}
+{% set rd = r.readings %}
+<div class="actions-row noprint" style="justify-content:center;margin-bottom:16px">
+  <button class="btn" type="button" onclick="window.print()">Print this card</button>
+  <a class="btn ghost" href="javascript:history.back()">Back to result</a>
+</div>
+<article class="kcard" lang="en">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+    <img src="/static/logo.svg" alt="" width="44" height="44">
+    <div><b style="font-size:22px">RO reject water card</b><div class="ta" lang="ta">RO மிச்ச நீர் அட்டை</div></div>
+  </div>
+  <div class="grid two" style="grid-template-columns:auto 1fr;align-items:center">
+    <div class="big">{{ "%.1f"|format(r.reject_per_litre) }} L</div>
+    <div>
+      <b>go to the drain for every 1 litre we drink.</b> About {{ r.daily_reject_l|litres }} litres a day.
+      <div class="ta" lang="ta">ஒவ்வொரு 1 லிட்டர் குடிநீருக்கும் இந்த RO {{ "%.1f"|format(r.reject_per_litre) }} லிட்டர் நீரை வெளியே விடுகிறது. ஒரு நாளைக்கு சுமார் {{ r.daily_reject_l|litres }} லிட்டர்.</div>
+    </div>
+  </div>
+  <h3 style="margin-top:20px">Put the reject hose in a bucket. Use it for:</h3>
+  <div class="ta" lang="ta">வெளியேறும் குழாயை ஒரு வாளியில் விடுங்கள். இதைப் பயன்படுத்தலாம்:</div>
+  <ul>
+    <li>Mopping floors <span class="ta" lang="ta">· தரை துடைக்க</span></li>
+    <li>Flushing the toilet <span class="ta" lang="ta">· கழிப்பறை ஃப்ளஷ் செய்ய</span></li>
+    <li>Washing the bike or car <span class="ta" lang="ta">· வண்டி கழுவ</span></li>
+    {% if r.plant_class == "none" %}<li>Plants <span class="ta" lang="ta">· செடிகளுக்கு ஊற்றலாம்</span></li>{% endif %}
+  </ul>
+  <p><b>Never for drinking or cooking.</b> <span class="ta" lang="ta">குடிக்கவோ சமைக்கவோ பயன்படுத்த வேண்டாம்.</span></p>
+  {% if r.plant_class == "slight" %}<p>Plants: hardy ones only, and water with tap water now and then. <span class="ta" lang="ta">தாங்கும் செடிகளுக்கு மட்டும், அவ்வப்போது குழாய் நீரும் ஊற்றுங்கள்.</span></p>{% endif %}
+  {% if r.plant_class == "severe" %}<p>Plants: no, this water is too salty. <span class="ta" lang="ta">செடிகளுக்கு ஊற்ற வேண்டாம்.</span></p>{% endif %}
+  <p style="margin-bottom:0">Recovery measured: {{ "%.0f"|format(r.recovery_pct) }} percent{% if rd.rated_recovery_pct %} (label says {{ rd.rated_recovery_pct|round|int }}){% endif %}. Measure again after every service. <span class="ta" lang="ta">சர்வீஸ் செய்த பிறகு மீண்டும் அளந்து பாருங்கள்.</span></p>
+</article>
+{% endblock %}

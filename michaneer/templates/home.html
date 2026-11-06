@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Michaneer | How much water does your RO throw away?{% endblock %}
+{% macro field(name, label, unit, hint="", required=False, step="any", placeholder="", default="") -%}
+<div>
+  <label for="{{ name }}">{{ label }}{% if not required %} <span class="hint" style="display:inline">(optional)</span>{% endif %}</label>
+  <div class="unit">
+    <input id="{{ name }}" name="{{ name }}" type="number" inputmode="decimal" min="0" step="{{ step }}"
+           value="{{ form.get(name, default) }}" placeholder="{{ placeholder }}" {% if required %}required{% endif %}
+           {% if hint %}aria-describedby="{{ name }}-hint"{% endif %}>
+    <span>{{ unit }}</span>
+  </div>
+  {% if hint %}<span class="hint" id="{{ name }}-hint">{{ hint }}</span>{% endif %}
+</div>
+{%- endmacro %}
+{% block content %}
+<p class="eyebrow">For homes and hostels with an RO purifier</p>
+<h1>How much water does your RO send down the drain?</h1>
+<p class="lede">Every RO purifier has a second hose. Official figures put its output anywhere from 1 to 3 litres for every litre you drink, so the only way to know yours is to measure it. A bottle, a bucket and a measuring jug take about ten minutes.</p>
+
+{% if error %}<p class="alert error" role="alert">{{ error }}</p>{% endif %}
+{% if example %}<p class="alert example">Example readings are filled in. The reject figure is the top of the official 1 to 3 litre range; the rest are illustrative, not a measurement. Replace them with your own.</p>{% endif %}
+
+<div class="grid two">
+  <section class="card" aria-labelledby="steps-h">
+    <h2 id="steps-h">The bucket test</h2>
+    <svg class="illus" viewBox="0 0 360 170" role="img" aria-label="An RO purifier with a bottle under the drinking tap and a bucket under the reject hose">
+      <rect x="120" y="10" width="120" height="78" rx="12" fill="#E6EEFE" stroke="#2563EB" stroke-width="2"/>
+      <text x="180" y="54" text-anchor="middle" font-size="15" font-weight="700" fill="#2563EB" font-family="system-ui, sans-serif">RO</text>
+      <path d="M150 88v22h-10" fill="none" stroke="#2563EB" stroke-width="4" stroke-linecap="round"/>
+      <rect x="118" y="118" width="34" height="46" rx="6" fill="#fff" stroke="#2563EB" stroke-width="2"/>
+      <rect x="120" y="132" width="30" height="30" rx="4" fill="#93B4F8"/>
+      <text x="112" y="132" text-anchor="end" font-size="12" fill="#0B1B33" font-family="system-ui, sans-serif">1 L bottle</text>
+      <path d="M220 88c0 30 40 20 60 46" fill="none" stroke="#4C1D95" stroke-width="4" stroke-linecap="round"/>
+      <path d="M252 132h64l-8 34h-48z" fill="#EFE9FA" stroke="#4C1D95" stroke-width="2"/>
+      <path d="M257 146h54l-4 18h-46z" fill="#4C1D95" opacity=".55"/>
+      <text x="320" y="124" text-anchor="end" font-size="12" fill="#0B1B33" font-family="system-ui, sans-serif">bucket</text>
+    </svg>
+    <ol class="steps">
+      <li><b>Empty the tank.</b> Fill bottles from the drinking tap until only a thin stream is left. That stream is the membrane's live output.</li>
+      <li><b>Start together.</b> Keep the tap open, put a 1 litre bottle under it and the reject hose into an empty bucket at the same moment.</li>
+      <li><b>Stop when the bottle is full.</b> Pull the hose out, pour the bucket into a measuring jug and note the millilitres.</li>
+      <li><b>Optional.</b> A TDS pen reading of tap water and of purified water, and the rated recovery printed on the purifier's label.</li>
+    </ol>
+    <p class="notes">More detail and common mistakes: <a href="/how">how to measure</a>.</p>
+  </section>
+
+  <section class="card" aria-labelledby="form-h">
+    <h2 id="form-h">Your readings</h2>
+    <form method="get" action="/result">
+      <fieldset>
+        <legend>The test</legend>
+        <div class="fields">
+          {{ field("reject_ml", "Reject water in the bucket", "mL", "Read with a measuring jug.", required=True, placeholder="e.g. 2400") }}
+          {{ field("purified_ml", "Purified water collected", "mL", "1000 for a 1 litre bottle.", required=True, default="1000") }}
+          {{ field("jug_resolution_ml", "Jug marking interval", "mL", "Gap between the lines on your jug. Sets the error range.", default="50") }}
+          {{ field("seconds", "Seconds to fill the bottle", "s", "Gives the production rate.") }}
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Your home</legend>
+        <div class="fields">
+          {{ field("daily_purified_l", "Purified water used a day", "L/day", "WHO estimates about " ~ who ~ " L per person for drinking and cooking.", required=True, default="30") }}
+          {{ field("reusable_l_per_day", "Litres you can reuse a day", "L/day", "Mopping, flushing, washing the bike. Leave empty for all of it.") }}
+          <div>
+            <label for="water_source">Water source</label>
+            <select id="water_source" name="water_source">
+              {% for key, name in sources_of_water.items() %}
+              <option value="{{ key }}" {% if form.get('water_source', 'mixed') == key %}selected{% endif %}>{{ name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Readings that sharpen the advice</legend>
+        <div class="fields">
+          {{ field("feed_tds", "Tap water TDS", "mg/L", "From a TDS pen, before the purifier.") }}
+          {{ field("product_tds", "Purified water TDS", "mg/L", "From the drinking tap.") }}
+          {{ field("rated_recovery_pct", "Rated recovery on the label", "%", "Required on labels under G.S.R. 724(E).") }}
+        </div>
+      </fieldset>
+      <div class="actions-row">
+        <button class="btn" type="submit">See my result</button>
+        <a class="btn ghost" href="/?example=1">Fill example readings</a>
+      </div>
+    </form>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+[project]
+name = "michaneer"
+version = "0.1.0"
+description = "Measure how much water your RO purifier sends down the drain, and get a plan to stop it"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.162.0",
+    "jinja2>=3.1.6",
+    "python-multipart>=0.0.33",
+    "uvicorn>=0.54.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.2.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+filterwarnings = ["ignore:Using `httpx` with `starlette.testclient` is deprecated"]

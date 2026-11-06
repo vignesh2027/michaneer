@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Michaneer{% endblock %}</title>
+  <meta name="description" content="Measure how much water your RO purifier sends down the drain, and get a plan to use it.">
+  <link rel="icon" href="/static/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/static/logo.svg" alt=""><span><b>Michaneer</b><small>RO reject water, measured</small></span></a>
+    {% set here = request.url.path %}
+    <nav class="main" aria-label="Main">
+      <a href="/" {% if here in ['/', '/result'] %}aria-current="page"{% endif %}>Bucket test</a>
+      <a href="/how" {% if here == '/how' %}aria-current="page"{% endif %}>How to measure</a>
+      <a href="/log" {% if here == '/log' %}aria-current="page"{% endif %}>My log</a>
+      <a href="/sources" {% if here == '/sources' %}aria-current="page"{% endif %}>Sources</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+  {% block content %}{% endblock %}
+  </div>
+</main>
+<footer class="site">
+  <div class="wrap">Michaneer runs on your own machine. It stores bucket-test readings only. It does not say whether water is safe to drink; only a lab test can.</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}My log | Michaneer{% endblock %}
+{% block content %}
+<p class="eyebrow">Measured, not estimated</p>
+<h1>My bucket-test log</h1>
+<p class="lede">Each row is a test you saved. The change between your first and latest test is computed at the same daily use, so only the purifier's behaviour counts.</p>
+{% if change %}
+<div class="hero">
+  <div class="card stat danger"><div class="num">{{ change.before|litres }}<small> L</small></div><p><b>A year at your first test</b>, "{{ change.first.label }}", {{ "%.0f"|format(change.first.recovery*100) }} percent recovery.</p></div>
+  <div class="card stat primary"><div class="num">{{ change.after|litres }}<small> L</small></div><p><b>A year at your latest test</b>, "{{ change.latest.label }}", {{ "%.0f"|format(change.latest.recovery*100) }} percent recovery.</p></div>
+  <div class="card stat violet"><div class="num">{% if change.saved >= 0 %}{{ change.saved|litres }}{% else %}+{{ (-change.saved)|litres }}{% endif %}<small> L</small></div><p><b>{% if change.saved >= 0 %}Saved a year{% else %}More waste a year{% endif %}</b> at {{ change.daily|litres }} litres of purified water a day.</p></div>
+</div>
+{% endif %}
+<section class="card">
+  {% if rows %}
+  <div class="scroll">
+  <table class="data">
+    <thead><tr><th>#</th><th>Saved (UTC)</th><th>Label</th><th class="n">Recovery</th><th class="n">Reject per litre</th><th class="n">Litres a year</th><th></th></tr></thead>
+    <tbody>
+    {% for e, q in rows %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ e.created_at.replace('T', ' ')[:16] }}</td>
+        <td><a href="/result?{{ q }}">{{ e.label }}</a></td>
+        <td class="n">{{ "%.0f"|format(e.recovery*100) }}%</td>
+        <td class="n">{{ "%.2f"|format((1-e.recovery)/e.recovery) }} L</td>
+        <td class="n">{{ e.annual_reject_l|litres }}</td>
+        <td><form method="post" action="/log/{{ e.id }}/delete"><button class="btn ghost small" type="submit" aria-label="Delete test {{ loop.index }}">Delete</button></form></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% else %}
+  <p>No tests saved yet. <a href="/">Run a bucket test</a>, then press "Save to my log".</p>
+  {% endif %}
+</section>
+{% endblock %}

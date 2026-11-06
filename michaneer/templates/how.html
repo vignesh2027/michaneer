@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}How to measure | Michaneer{% endblock %}
+{% block content %}
+<p class="eyebrow">Ten minutes, things you already own</p>
+<h1>How to run the bucket test</h1>
+<p class="lede">The official range is wide: a Lok Sabha answer puts reject water at 1 to 3 litres per litre of purified water, and the ministry said it had not studied it. Your own purifier sits somewhere in that range, and the test finds where.</p>
+<div class="grid two">
+  <section class="card">
+    <h2>You need</h2>
+    <ul>
+      <li>A clean 1 litre bottle.</li>
+      <li>A bucket big enough for 5 litres.</li>
+      <li>A measuring jug. Kitchen jugs are marked every 50 or 100 mL; enter that gap so the result shows its error range.</li>
+      <li>Optional: a phone stopwatch, a TDS pen, and the purifier's label.</li>
+    </ul>
+    <h2>Steps</h2>
+    <ol>
+      <li>Most home purifiers send clean water into a storage tank, and the tap drinks from the tank. Empty it first: fill bottles from the tap until the flow drops to a thin stream. With the tap left open, that stream is what the membrane is making right now.</li>
+      <li>Keep the tap open. Put the bottle under it and the reject hose into the empty bucket at the same moment, and start the stopwatch.</li>
+      <li>When the bottle reaches its mark, pull the hose out of the bucket and stop the watch.</li>
+      <li>Pour the bucket into the jug, a jug at a time, and add up the millilitres.</li>
+      <li>Enter the numbers. A smaller bottle works too; enter its size as the purified amount. Repeat once; if the two results differ by more than the error range, average them.</li>
+    </ol>
+  </section>
+  <section class="card">
+    <h2>Common mistakes</h2>
+    <ul>
+      <li><b>Testing from a full tank.</b> Stored water pours out fast while the reject hose barely runs, which makes the purifier look far better than it is.</li>
+      <li><b>Low pressure hours.</b> Recovery falls when the inlet pressure is low. Test at the time you normally fill bottles.</li>
+      <li><b>Swapped TDS readings.</b> Tap water is the higher number; purified water is the lower one.</li>
+    </ul>
+    <h2>What the numbers mean</h2>
+    <ul>
+      <li><b>Recovery</b> is purified divided by purified plus reject. BIS IS 16240:2023 asks new domestic purifiers for at least 40 percent; the 2015 edition asked for 20.</li>
+      <li><b>Reject TDS</b> follows from a salt balance: whatever salt the membrane holds back leaves in the reject stream. Without a purified reading Michaneer assumes all of it does, which gives the highest possible value.</li>
+      <li><b>Plants</b> use the FAO irrigation classes: under 450 mg/L no restriction, 450 to 2000 slight to moderate, over 2000 severe.</li>
+    </ul>
+    <h2>What Michaneer will not tell you</h2>
+    <p>Whether water is safe to drink. A TDS pen measures dissolved salts only. Germs, fluoride, nitrate and arsenic need a lab test, for example at a TWAD Board water testing laboratory in Tamil Nadu.</p>
+  </section>
+</div>
+{% endblock %}

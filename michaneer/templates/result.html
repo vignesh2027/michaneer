@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Your RO result | Michaneer{% endblock %}
+{% macro cites(ids) -%}
+{% if ids %}<span class="cite">Source: {% for i in ids %}<a href="/sources#{{ i }}">{{ short[i] }}</a>{% if not loop.last %}; {% endif %}{% endfor %}</span>{% endif %}
+{%- endmacro %}
+{% block content %}
+{% set rd = r.readings %}
+<p class="eyebrow">Bucket test result</p>
+<h1>For every litre you drink, {{ "%.1f"|format(r.reject_per_litre) }} litres go to the drain.</h1>
+{% if example %}<p class="alert example">These are example readings, not a measurement. Run the bucket test on your own purifier for a real result.</p>{% endif %}
+
+<div class="hero">
+  <div class="card stat primary">
+    <div class="num">{{ "%.0f"|format(r.recovery_pct) }}<small>%</small></div>
+    <p><b>Recovery.</b> Range {{ "%.1f"|format(r.recovery_low*100) }} to {{ "%.1f"|format(r.recovery_high*100) }} percent with a {{ rd.jug_resolution_ml|round|int }} mL jug.</p>
+  </div>
+  <div class="card stat violet">
+    <div class="num">{{ r.daily_reject_l|litres }}<small> L</small></div>
+    <p><b>Reject water a day</b> at {{ rd.daily_purified_l|litres }} litres of purified water a day.</p>
+  </div>
+  <div class="card stat danger">
+    <div class="num">{{ r.annual_reject_l|litres }}<small> L</small></div>
+    <p><b>A year down the drain.</b> That is {{ "{:,.0f}".format(r.annual_cans) }} twenty-litre cans.</p>
+  </div>
+</div>
+
+<section class="card" aria-labelledby="split-h">
+  <h2 id="split-h">Where your feed water goes</h2>
+  {% set pp = (r.recovery*100)|round(1) %}
+  <div class="split">
+    <div class="bar" role="img" aria-label="{{ pp }} percent purified, {{ (100-pp)|round(1) }} percent reject">
+      <div class="p" style="width: {{ pp }}%"></div><div class="r" style="width: {{ 100-pp }}%"></div>
+    </div>
+    <div class="ticks" aria-hidden="true">
+      <span style="left:20%">20% old BIS floor</span>
+      <span style="left:40%">40% BIS floor</span>
+      <span style="left:60%">60% NGT direction (stayed)</span>
+    </div>
+  </div>
+  <div class="legend"><span><i class="dot" style="background:#2563EB"></i>Purified, {{ pp }}%</span><span><i class="dot" style="background:#4C1D95"></i>Reject, {{ (100-pp)|round(1) }}%</span>{% if r.production_lph %}<span>Production rate {{ "%.1f"|format(r.production_lph) }} L/hour</span>{% endif %}</div>
+</section>
+
+<div class="grid two section">
+  <section class="card" aria-labelledby="checks-h">
+    <h2 id="checks-h">Checks</h2>
+    <ul class="checks">
+      {% for c in r.checks %}
+      <li class="{{ c.status }}"><span class="tag {{ c.status }}">{{ c.label }}</span>{{ c.text }}<br>{{ cites(c.sources) }}</li>
+      {% endfor %}
+    </ul>
+    {% if not rd.feed_tds %}<p class="notes">Add a tap water TDS reading to check whether RO is needed and whether the reject water suits plants.</p>{% endif %}
+  </section>
+
+  <section class="card" aria-labelledby="plan-h">
+    <h2 id="plan-h">Your plan, biggest saving first</h2>
+    <ol class="plan">
+      {% for a in r.actions %}
+      <li class="{{ 'conditional' if a.conditional }}">
+        <h3>{{ loop.index }}. {{ a.title }}{% if a.conditional %} <span class="tag info">only after a lab test</span>{% endif %}</h3>
+        <div class="l">{{ a.litres_per_year|litres }} L<small>a year</small></div>
+        <p>{{ a.detail }}<br>{{ cites(a.sources) }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+    <div class="total"><span>Steps you can take this week</span><b>{{ r.combined_litres_per_year|litres }} L a year</b></div>
+    {% if r.right_size_litres_per_year %}<p class="notes">The lab-test step is not added to the total because it would replace the others.</p>{% endif %}
+  </section>
+</div>
+
+{% if r.notes %}
+<section class="card section"><h2>Notes</h2><ul class="notes">{% for n in r.notes %}<li>{{ n }}</li>{% endfor %}</ul></section>
+{% endif %}
+
+<section class="card section" aria-labelledby="next-h">
+  <h2 id="next-h">Keep the number honest</h2>
+  <p class="notes">Save this test, act on the plan, then test again. The log shows the measured change in litres a year.</p>
+  <form method="post" action="/log" class="actions-row">
+    {% for k, v in rd.__dict__.items() %}{% if v is not none %}<input type="hidden" name="{{ k }}" value="{{ v }}">{% endif %}{% endfor %}
+    <label for="label" style="margin:0">Label</label>
+    <input id="label" name="label" placeholder="e.g. Before service" maxlength="60" style="max-width:240px">
+    <button class="btn violet" type="submit">Save to my log</button>
+    <a class="btn ghost" href="/card?{{ query }}">Print kitchen card</a>
+    <a class="btn ghost" href="/?{{ query }}">Edit readings</a>
+  </form>
+</section>
+{% endblock %}
