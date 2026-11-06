@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from dataclasses import asdict
 from pathlib import Path
 from urllib.parse import urlencode
@@ -79,9 +80,11 @@ def query_of(readings: Readings) -> str:
 
 
 def litres(value: float) -> str:
+    """Round half up, after trimming float noise, so equal values always print alike."""
+    value = round(value, 6)
     if value >= 100:
-        return f"{value:,.0f}"
-    return f"{value:,.1f}"
+        return f"{math.floor(value + 0.5):,}"
+    return f"{math.floor(value * 10 + 0.5) / 10:,.1f}"
 
 
 templates.env.filters["litres"] = litres

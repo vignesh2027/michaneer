@@ -54,7 +54,8 @@ h3 { font-size: 17px; margin: 0 0 6px; }
 
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px; }
 .grid { display: grid; gap: 20px; }
-.grid.two { grid-template-columns: 1fr 1.2fr; align-items: start; }
+.grid.two { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: start; }
+.grid > *, .hero > * { min-width: 0; }
 .grid.three { grid-template-columns: repeat(3, 1fr); }
 @media (max-width: 860px) { .grid.two, .grid.three { grid-template-columns: 1fr; } }
 
@@ -115,6 +116,9 @@ input:hover, select:hover { border-color: var(--primary); }
 .split .ticks { position: relative; height: 34px; font-size: 12px; color: var(--muted); }
 .split .ticks span { position: absolute; top: 4px; transform: translateX(-50%); white-space: nowrap; }
 .split .ticks span::before { content: ""; position: absolute; left: 50%; top: -10px; height: 8px; border-left: 2px solid var(--text); }
+.split .ticks i { font-style: normal; }
+.short-only { display: none; }
+@media (max-width: 640px) { .split .ticks .long { display: none; } .short-only { display: inline; } }
 .legend { display: flex; gap: 16px; font-size: 14px; color: var(--muted); flex-wrap: wrap; }
 .dot { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
 
@@ -132,7 +136,7 @@ ul.checks li.bad { border-left-color: var(--danger); }
 .cite a { color: var(--muted); }
 
 ol.plan { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-ol.plan li { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+ol.plan li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 16px; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
 ol.plan li .l { text-align: right; font-weight: 800; font-size: 22px; color: var(--accent); white-space: nowrap; }
 ol.plan li .l small { display: block; font-size: 12px; font-weight: 600; color: var(--muted); }
 ol.plan li p { grid-column: 1 / -1; margin: 0; color: var(--muted); }
