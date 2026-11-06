@@ -12,7 +12,7 @@ def text_of(html: str) -> str:
     return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html))
 
 
-@pytest.mark.parametrize("path", ["/", "/?example=1", "/how", "/sources", "/log", "/healthz", "/static/style.css", "/static/logo.svg"])
+@pytest.mark.parametrize("path", ["/", "/?example=1", "/how", "/sources", "/log", "/healthz", "/static/style.css", "/static/logo.svg", "/static/favicon.svg", "/static/apple-touch-icon.png"])
 def test_pages_load(path):
     assert client.get(path).status_code == 200
 

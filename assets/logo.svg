@@ -1,15 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Michaneer logo">
-  <title>Michaneer</title>
-  <defs>
-    <clipPath id="drop">
-      <path d="M32 7C32 7 13.5 27.5 13.5 40.5a18.5 18.5 0 0 0 37 0C50.5 27.5 32 7 32 7Z"/>
-    </clipPath>
-  </defs>
-  <rect width="64" height="64" rx="16" fill="#2563EB"/>
-  <path d="M32 7C32 7 13.5 27.5 13.5 40.5a18.5 18.5 0 0 0 37 0C50.5 27.5 32 7 32 7Z" fill="#FFFFFF"/>
-  <g clip-path="url(#drop)">
-    <path d="M8 43c6-4.5 12-4.5 18 0s12 4.5 18 0 12-4.5 18 0V64H8Z" fill="#4C1D95"/>
-    <path d="M8 50c6-3.5 12-3.5 18 0s12 3.5 18 0 12-3.5 18 0" fill="none" stroke="#8B5CF6" stroke-width="2.2" stroke-linecap="round"/>
-  </g>
-  <path d="M24.5 33.5c0-4 3-8.5 5.5-11.5" fill="none" stroke="#93B4F8" stroke-width="3" stroke-linecap="round"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Michaneer"><title>Michaneer</title><g transform="translate(18 0)"><path d="M98 252C98 150 414 150 414 252" fill="none" stroke="#451226" stroke-width="18"/><path d="M48 58H180A40 40 0 0 1 220 98V116" fill="none" stroke="#451226" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"/><rect x="206" y="150" width="28" height="96" rx="14" fill="#8FE3D9"/><path d="M84 248L130 436Q135 458 158 458H354Q377 458 382 436L428 248Z" fill="#6E1E3A"/><ellipse cx="256" cy="248" rx="176" ry="38" fill="#451226"/><ellipse cx="256" cy="252" rx="146" ry="24" fill="#8FE3D9"/><circle cx="98" cy="256" r="16" fill="#451226"/><circle cx="414" cy="256" r="16" fill="#451226"/><rect x="142" y="316" width="128" height="14" rx="7" fill="#FFF4EA"/><rect x="150.6" y="352" width="56" height="14" rx="7" fill="#FFF4EA"/><rect x="159.3" y="388" width="92" height="14" rx="7" fill="#FFF4EA"/><rect x="167.9" y="424" width="56" height="14" rx="7" fill="#FFF4EA"/></g></svg>

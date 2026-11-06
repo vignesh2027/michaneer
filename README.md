@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/logo-512.png" width="96" alt="Michaneer logo"></p>
+<p align="center"><img src="assets/logo-512.png" width="96" alt="Michaneer logo: a bucket catching the reject stream from an RO purifier hose, with jug markings down its side"></p>
 
 # Michaneer
 
@@ -74,7 +74,7 @@ All checked on 6 November 2026. Full entries render on the app's Sources page an
 
 ## Built with
 
-Python, FastAPI, Jinja2, Uvicorn, SQLite and pytest, all open source. Server-rendered HTML and one CSS file; the only scripts are the print and back buttons. The logo is original.
+Python, FastAPI, Jinja2, Uvicorn, SQLite and pytest, all open source. Server-rendered HTML and one CSS file; the only scripts are the print and back buttons. The logo is original: a jamun red bucket catching the reject stream from the purifier's second hose, with jug markings down its side, drawn by hand as flat SVG.
 
 ## Limits
 
