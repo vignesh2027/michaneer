@@ -72,7 +72,7 @@ The repository includes an evaluation script that uses only published figures:
 * A jug marked every 100 mL pins recovery within 3.6 percentage points, so the test always tells a 25 percent unit from a 40 percent unit.
 * At 25 percent recovery, tap water above about 342 mg/L already produces reject water outside FAO's no-restriction class for irrigation. The common tip "pour it on your plants" is only right for low-TDS water, so Michaneer decides from the reject TDS it computes and assumes the worst case when a reading is missing.
 
-126 automated tests cover the arithmetic, class boundaries, validation, the log, the Tamil card, and a check that no page loads third-party scripts.
+127 automated tests cover the arithmetic, class boundaries, validation, the log, the Tamil card, and a check that no page loads third-party scripts.
 
 ### Challenges we ran into
 

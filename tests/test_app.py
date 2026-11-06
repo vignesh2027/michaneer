@@ -94,3 +94,12 @@ def test_sources_page_lists_every_source():
     html = client.get("/sources").text
     for s in SOURCES:
         assert f'id="{s.id}"' in html
+
+
+def test_save_form_on_result_page_round_trips():
+    html = client.get("/result", params=EXAMPLE).text
+    form = dict(re.findall(r'<input type="hidden" name="([a-z_]+)" value="([^"]*)"', html))
+    assert form["reject_ml"] == "3000.0"
+    form["label"] = "From the page"
+    assert client.post("/log", data=form, follow_redirects=False).status_code == 303
+    assert "From the page" in client.get("/log").text

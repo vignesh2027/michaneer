@@ -45,7 +45,7 @@ uv run pytest -q
 uv run python -m eval.run_eval
 ```
 
-The tests (126) cover the salt balance, the TDS and FAO class boundaries, the plan arithmetic, input validation, the log round trip, the Tamil card and the rule that no page loads third-party scripts. The evaluation writes [eval/RESULTS.md](eval/RESULTS.md) from published figures only. Headlines:
+The tests (127) cover the salt balance, the TDS and FAO class boundaries, the plan arithmetic, input validation, the log round trip, the Tamil card and the rule that no page loads third-party scripts. The evaluation writes [eval/RESULTS.md](eval/RESULTS.md) from published figures only. Headlines:
 
 * One person drinking and cooking with 7.5 L a day (WHO) sends **2,738 to 8,212 litres a year** to the drain across the official 1 to 3 litre range. Moving from the top of that range to the 2023 BIS floor saves 4,106 litres per person per year before any reuse.
 * A kitchen jug marked every 100 mL pins recovery within 3.6 percentage points, so the test always separates a 25 percent unit from a 40 percent unit.
