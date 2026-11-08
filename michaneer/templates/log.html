@@ -4,6 +4,7 @@
 <p class="eyebrow">Measured, not estimated</p>
 <h1>My bucket-test log</h1>
 <p class="lede">Each row is a test you saved. The change between your first and latest test is computed at the same daily use, so only the purifier's behaviour counts.</p>
+{% if hosted %}<p class="alert example">Public demo: this log is visible to this browser only, kept in memory and never written to disk. It is wiped when the demo restarts.</p>{% endif %}
 {% if change %}
 <div class="hero">
   <div class="card stat danger"><div class="num">{{ change.before|litres }}<small> L</small></div><p><b>A year at your first test</b>, "{{ change.first.label }}", {{ "%.0f"|format(change.first.recovery*100) }} percent recovery.</p></div>

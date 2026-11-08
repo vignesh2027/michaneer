@@ -28,7 +28,7 @@
   </div>
 </main>
 <footer class="site">
-  <div class="wrap">Michaneer runs on your own machine. It stores bucket-test readings only. It does not say whether water is safe to drink; only a lab test can.</div>
+  <div class="wrap">{% if hosted %}This is the public demo. Your log is kept in server memory for this browser only and is wiped when the demo restarts; run Michaneer on your own machine to keep it.{% else %}Michaneer runs on your own machine.{% endif %} It stores bucket-test readings only. It does not say whether water is safe to drink; only a lab test can.</div>
 </footer>
 </body>
 </html>

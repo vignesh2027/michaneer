@@ -6,6 +6,10 @@
 
 Michaneer (from Tamil *michcha neer*, leftover water) is a small web app for homes and hostels that drink from a reverse osmosis (RO) purifier. You run a ten minute bucket test with a bottle, a bucket and a measuring jug. Michaneer turns the readings into your purifier's recovery ratio, the litres it sends to the drain each year, and a ranked plan with the litres each step saves. A log keeps your tests so a before and after shows the change you actually made.
 
+**Live demo:** https://applemacbook6sep2004--michaneer.us-east.modal.run
+
+The public demo runs on one small Modal container that sleeps when idle, so the first visit can take a few seconds. On the demo, your log is kept in server memory for your browser only and is wiped when the demo restarts; nothing is written to disk. Run it locally (below) to keep a log.
+
 ## The problem
 
 Every RO purifier has a second hose. A Lok Sabha answer (Unstarred Question 778, 17 September 2020) put the reject at "1 to 3 litre per litre of permeate depending on the size and purpose of RO system", and added that no study had been done. That factor of three means a household cannot know its own waste without measuring it.
@@ -45,7 +49,7 @@ uv run pytest -q
 uv run python -m eval.run_eval
 ```
 
-The tests (127) cover the salt balance, the TDS and FAO class boundaries, the plan arithmetic, input validation, the log round trip, the Tamil card and the rule that no page loads third-party scripts. The evaluation writes [eval/RESULTS.md](eval/RESULTS.md) from published figures only. Headlines:
+The tests (130) cover the salt balance, the TDS and FAO class boundaries, the plan arithmetic, input validation, the log round trip, the Tamil card and the rule that no page loads third-party scripts. The evaluation writes [eval/RESULTS.md](eval/RESULTS.md) from published figures only. Headlines:
 
 * One person drinking and cooking with 7.5 L a day (WHO) sends **2,738 to 8,212 litres a year** to the drain across the official 1 to 3 litre range. Moving from the top of that range to the 2023 BIS floor saves 4,106 litres per person per year before any reuse.
 * A kitchen jug marked every 100 mL pins recovery within 3.6 percentage points, so the test always separates a 25 percent unit from a 40 percent unit.
@@ -76,6 +80,10 @@ All checked on 6 November 2026. Full entries render on the app's Sources page an
 
 Python, FastAPI, Jinja2, Uvicorn, SQLite and pytest, all open source. Server-rendered HTML and one CSS file; the only scripts are the print and back buttons. The logo is original: a jamun red bucket catching the reject stream from the purifier's second hose, with jug markings down its side, drawn by hand as flat SVG.
 
+## Hosted demo
+
+`modal_app.py` deploys the demo with `modal deploy modal_app.py`: a quarter CPU, 256 MB, scale to zero, `MICHANEER_HOSTED=1`. In that mode the log is per browser (a random cookie id) and in memory only.
+
 ## Limits
 
 * One bucket test is one moment. Recovery moves with inlet pressure, temperature and filter age, so test again after a service and every few months.
@@ -86,6 +94,7 @@ Python, FastAPI, Jinja2, Uvicorn, SQLite and pytest, all open source. Server-ren
 ## Layout
 
 ```
+modal_app.py    hosted demo on Modal
 michaneer/      app.py (routes), model.py (all arithmetic), store.py (SQLite log), sources.py, templates/, static/
 tests/          pytest suite
 eval/           run_eval.py and RESULTS.md

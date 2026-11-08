@@ -103,3 +103,21 @@ def test_save_form_on_result_page_round_trips():
     form["label"] = "From the page"
     assert client.post("/log", data=form, follow_redirects=False).status_code == 303
     assert "From the page" in client.get("/log").text
+
+
+def test_hosted_log_is_per_browser_and_in_memory(temp_db, monkeypatch):
+    from michaneer import app as app_module
+
+    monkeypatch.setattr(app_module, "HOSTED", True)
+    monkeypatch.setattr(app_module, "memory_log", app_module.store.MemoryLog())
+    form = dict(EXAMPLE, label="Hosted before")
+    a, b = (TestClient(app_module.app, base_url="https://testserver") for _ in range(2))
+    assert a.post("/log", data=form, follow_redirects=False).status_code == 303
+    assert "Hosted before" in a.get("/log").text
+    assert "Hosted before" not in b.get("/log").text
+    assert not temp_db.exists()
+    ids = re.findall(r"/log/(\d+)/delete", a.get("/log").text)
+    b.post(f"/log/{ids[0]}/delete")
+    assert "Hosted before" in a.get("/log").text
+    a.post(f"/log/{ids[0]}/delete")
+    assert "Hosted before" not in a.get("/log").text

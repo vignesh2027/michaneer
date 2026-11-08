@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import math
+import os
+import secrets
 from dataclasses import asdict
 from pathlib import Path
 from urllib.parse import urlencode
@@ -21,6 +23,13 @@ HERE = Path(__file__).resolve().parent
 app = FastAPI(title="Michaneer", docs_url=None, redoc_url=None, openapi_url=None)
 app.mount("/static", StaticFiles(directory=HERE / "static"), name="static")
 templates = Jinja2Templates(directory=HERE / "templates")
+
+# Hosted demo mode: each browser's log lives in server memory, keyed by a random
+# cookie, and is lost when the demo restarts. Nothing is written to disk.
+HOSTED = os.environ.get("MICHANEER_HOSTED") == "1"
+COOKIE = "michaneer_log"
+memory_log = store.MemoryLog()
+templates.env.globals["hosted"] = HOSTED
 
 FIELDS = (
     "reject_ml", "purified_ml", "jug_resolution_ml", "daily_purified_l", "seconds",
@@ -135,19 +144,30 @@ async def log_add(request: Request):
         readings = parse({k: str(v) for k, v in form.items()})
     except InputError as err:
         return page(request, "message.html", status_code=422, title="Not saved", text=str(err))
-    store.add(readings, label)
-    return RedirectResponse("/log", status_code=303)
+    response = RedirectResponse("/log", status_code=303)
+    if HOSTED:
+        owner = request.cookies.get(COOKIE)
+        if not owner or len(owner) > 64:
+            owner = secrets.token_urlsafe(18)
+            response.set_cookie(COOKIE, owner, httponly=True, samesite="lax", secure=True, max_age=7 * 24 * 3600)
+        memory_log.add(owner, readings, label)
+    else:
+        store.add(readings, label)
+    return response
 
 
 @app.post("/log/{entry_id}/delete")
-def log_delete(entry_id: int):
-    store.delete(entry_id)
+def log_delete(request: Request, entry_id: int):
+    if HOSTED:
+        memory_log.delete(request.cookies.get(COOKIE), entry_id)
+    else:
+        store.delete(entry_id)
     return RedirectResponse("/log", status_code=303)
 
 
 @app.get("/log", response_class=HTMLResponse)
 def log_view(request: Request):
-    entries = store.all_entries()
+    entries = memory_log.all_entries(request.cookies.get(COOKIE)) if HOSTED else store.all_entries()
     change = None
     if len(entries) >= 2:
         first, latest = entries[0], entries[-1]

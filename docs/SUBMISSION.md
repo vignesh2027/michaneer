@@ -18,13 +18,14 @@ Vignesh S (solo).
 
 ## Links
 
-* Source code: the public repository link, to be added when the repository is published. README has the exact run steps.
-* Demo video: to be recorded from docs/DEMO.md (about 2 minutes) and uploaded as a public or unlisted video.
-* Try it: run locally with three commands (see "How to run it" below). No keys or accounts needed.
+* Try it live: https://applemacbook6sep2004--michaneer.us-east.modal.run (sleeps when idle, so the first load can take a few seconds; press "Fill example readings", then "See my result")
+* Source code: [GITHUB REPO LINK]
+* Demo video: [YOUTUBE LINK]
+* Or run it locally with three commands (see "How to run it" below). No keys or accounts needed.
 
 ## Built with
 
-python, fastapi, jinja2, uvicorn, sqlite, html, css, pytest
+python, fastapi, jinja2, uvicorn, sqlite, html, css, pytest, modal
 
 ## Project story
 
@@ -62,7 +63,7 @@ We do not claim a city-wide total, because no public count of RO purifiers in Ch
 
 ### How we built it
 
-A Python web app (FastAPI with server-rendered Jinja2 pages and one CSS file). All arithmetic is in one small module: recovery from the bucket readings, an error range from half a jug marking, reject TDS from a salt balance, and the plan. Every threshold in the code points to a source on the app's Sources page. Test readings are stored in a local SQLite file. There are no external services, no keys and no network calls when it runs.
+A Python web app (FastAPI with server-rendered Jinja2 pages and one CSS file). All arithmetic is in one small module: recovery from the bucket readings, an error range from half a jug marking, reject TDS from a salt balance, and the plan. Every threshold in the code points to a source on the app's Sources page. Test readings are stored in a local SQLite file. There are no external services, no keys and no network calls when it runs. The public demo runs the same code on one small Modal container; there the log is kept in memory for each browser and never written to disk.
 
 ### Evaluation
 
@@ -72,7 +73,7 @@ The repository includes an evaluation script that uses only published figures:
 * A jug marked every 100 mL pins recovery within 3.6 percentage points, so the test always tells a 25 percent unit from a 40 percent unit.
 * At 25 percent recovery, tap water above about 342 mg/L already produces reject water outside FAO's no-restriction class for irrigation. The common tip "pour it on your plants" is only right for low-TDS water, so Michaneer decides from the reject TDS it computes and assumes the worst case when a reading is missing.
 
-127 automated tests cover the arithmetic, class boundaries, validation, the log, the Tamil card, and a check that no page loads third-party scripts.
+130 automated tests cover the arithmetic, class boundaries, validation, the log, the Tamil card, and a check that no page loads third-party scripts.
 
 ### Challenges we ran into
 
@@ -93,7 +94,7 @@ Measured data beats a typical figure when the typical figure has a threefold spr
 * One bucket test is one moment. Recovery changes with inlet pressure, temperature and filter age, so the app asks for repeat tests.
 * The numbers in our evaluation come from published figures and grids, not from a field study of many homes.
 * We cite the CPCB 2026 guidelines from a regulatory summary and the Lok Sabha answer as indexed, because neither original PDF loaded from our network.
-* Michaneer runs on the user's own computer. A hosted version would need a privacy review of the log.
+* The public demo keeps each browser's log in server memory only, so it is wiped whenever the demo restarts. A household that wants a lasting log runs Michaneer on its own computer, where the log is a local SQLite file.
 
 ### What's next
 
@@ -107,7 +108,7 @@ The event period is 19 October to 17 November 2026. Michaneer is a new repositor
 
 Public sources only, all credited in the app and README: BIS IS 10500:2012; BIS IS 16240:2023; MoEF&CC G.S.R. 724(E) of 4 October 2021; CPCB reject-water guidelines of 23 September 2026; Lok Sabha Unstarred Question 778 of 17 September 2020; NGT O.A. 134/2015 orders of 20 May 2019 and 1 December 2021 and the Supreme Court stay reported 1 March 2022; FAO Irrigation and Drainage Paper 29 Rev. 1; WHO, Domestic Water Quantity, Service Level and Health (2003).
 
-Additional credits: to be added by the lead before submitting.
+[AI-ASSISTANCE CREDITS LINE]
 
 ## How to run it
 
@@ -117,7 +118,7 @@ uv sync
 uv run uvicorn michaneer.app:app --port 8000
 ```
 
-Open http://127.0.0.1:8000, press "Fill example readings", then "See my result".
+Open http://127.0.0.1:8000, press "Fill example readings", then "See my result". The same app is live at https://applemacbook6sep2004--michaneer.us-east.modal.run.
 
 ## Screenshots to upload (docs/screenshots)
 

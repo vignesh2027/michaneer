@@ -87,3 +87,40 @@ def delete(entry_id: int) -> None:
 def clear() -> None:
     with _connect() as conn:
         conn.execute("DELETE FROM tests")
+
+
+class MemoryLog:
+    """Log for the hosted demo: kept in server memory per browser, never on disk.
+
+    Each browser gets a random id in a cookie. Entries vanish when the demo
+    container restarts or scales to zero, and old browsers are dropped first.
+    """
+
+    MAX_BROWSERS = 500
+    MAX_ENTRIES = 20
+
+    def __init__(self) -> None:
+        self._logs: dict[str, list[Entry]] = {}
+        self._next_id = 1
+
+    def add(self, owner: str, readings: Readings, label: str) -> int:
+        result = evaluate(readings)
+        label = " ".join(label.split())[:60] or "Bucket test"
+        log = self._logs.pop(owner, [])
+        self._logs[owner] = log  # most recently used last
+        while len(self._logs) > self.MAX_BROWSERS:
+            self._logs.pop(next(iter(self._logs)))
+        entry = Entry(self._next_id, datetime.now(timezone.utc).isoformat(timespec="seconds"), label,
+                      readings, result.recovery, result.annual_reject_l)
+        self._next_id += 1
+        log.append(entry)
+        del log[:-self.MAX_ENTRIES]
+        return entry.id
+
+    def all_entries(self, owner: str | None) -> list[Entry]:
+        return list(self._logs.get(owner or "", []))
+
+    def delete(self, owner: str | None, entry_id: int) -> None:
+        log = self._logs.get(owner or "")
+        if log is not None:
+            log[:] = [e for e in log if e.id != entry_id]
