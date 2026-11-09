@@ -20,7 +20,7 @@ Vignesh S (solo).
 
 * Try it live: https://applemacbook6sep2004--michaneer.us-east.modal.run (sleeps when idle, so the first load can take a few seconds; press "Fill example readings", then "See my result")
 * Source code: [GITHUB REPO LINK]
-* Demo video: [YOUTUBE LINK]
+* Demo video: https://youtu.be/M_3_X_DmRPQ
 * Or run it locally with three commands (see "How to run it" below). No keys or accounts needed.
 
 ## Built with
