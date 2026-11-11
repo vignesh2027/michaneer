@@ -6,9 +6,9 @@
 
 Michaneer (from Tamil *michcha neer*, leftover water) is a small web app for homes and hostels that drink from a reverse osmosis (RO) purifier. You run a ten minute bucket test with a bottle, a bucket and a measuring jug. Michaneer turns the readings into your purifier's recovery ratio, the litres it sends to the drain each year, and a ranked plan with the litres each step saves. A log keeps your tests so a before and after shows the change you actually made.
 
-**Live demo:** https://applemacbook6sep2004--michaneer.us-east.modal.run
+**Live demo:** https://michaneer.140-245-16-129.sslip.io
 
-The public demo runs on one small Modal container that sleeps when idle, so the first visit can take a few seconds. On the demo, your log is kept in server memory for your browser only and is wiped when the demo restarts; nothing is written to disk. Run it locally (below) to keep a log.
+The public demo runs in one small container on an Oracle Cloud Always Free VM. On the demo, your log is kept in server memory for your browser only and is wiped when the demo restarts; nothing is written to disk. Run it locally (below) to keep a log.
 
 ## The problem
 

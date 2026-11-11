@@ -18,7 +18,7 @@ Vignesh S (solo).
 
 ## Links
 
-* Try it live: https://applemacbook6sep2004--michaneer.us-east.modal.run (sleeps when idle, so the first load can take a few seconds; press "Fill example readings", then "See my result")
+* Try it live: https://michaneer.140-245-16-129.sslip.io (press "Fill example readings", then "See my result")
 * Source code: [GITHUB REPO LINK]
 * Demo video: https://youtu.be/M_3_X_DmRPQ
 * Or run it locally with three commands (see "How to run it" below). No keys or accounts needed.
@@ -118,7 +118,7 @@ uv sync
 uv run uvicorn michaneer.app:app --port 8000
 ```
 
-Open http://127.0.0.1:8000, press "Fill example readings", then "See my result". The same app is live at https://applemacbook6sep2004--michaneer.us-east.modal.run.
+Open http://127.0.0.1:8000, press "Fill example readings", then "See my result". The same app is live at https://michaneer.140-245-16-129.sslip.io.
 
 ## Screenshots to upload (docs/screenshots)
 

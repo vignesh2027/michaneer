@@ -4,7 +4,7 @@ Target length 2:00. Screen recording of the app at 1280 px wide, with voice over
 
 ## Before recording
 
-Record on the hosted demo, https://applemacbook6sep2004--michaneer.us-east.modal.run, in a fresh browser profile so the log starts empty. To record locally instead:
+Record on the hosted demo, https://michaneer.140-245-16-129.sslip.io, in a fresh browser profile so the log starts empty. To record locally instead:
 
 ```sh
 cd michaneer
