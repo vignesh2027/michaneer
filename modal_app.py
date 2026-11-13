@@ -1,7 +1,10 @@
-"""Public demo of Michaneer on Modal.
+"""Optional: deploy Michaneer on Modal (https://modal.com).
 
-Deploy: modal deploy modal_app.py
-URL:    https://applemacbook6sep2004--michaneer.us-east.modal.run
+The live demo does not use this file; it runs the same app in a small Docker
+container on an Oracle Cloud VM (see README, "Hosted demo"). Keep this only if
+you have a Modal account and want a scale-to-zero host of your own:
+
+    pip install modal && modal deploy modal_app.py
 
 One small container (a quarter CPU, 256 MB) that scales to zero when idle, so the
 first visit after a quiet spell takes a few seconds. In hosted mode each browser's

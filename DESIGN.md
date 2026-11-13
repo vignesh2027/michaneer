@@ -1,16 +1,6 @@
-# Michaneer: design and idea selection
+# Michaneer: design notes
 
 Written on 6 November 2026, before any app code.
-
-## What the judges score
-
-Green Shift Hacks publishes one criterion (see RULES.md):
-
-> **Environmental Impact.** "How clearly the project reduces waste, emissions, resource use, or environmental harm."
-
-The overview adds what the story must cover: "the problem, the intended users, your approach, the expected environmental benefit, the tools you used, and any limitations", and asks entrants to "Think beyond awareness: make sustainability more actionable, measurable, and possible."
-
-So the winning shape is: one real behaviour, a quantity a user can measure, a change that moves that quantity, and an honest account of how sure we are.
 
 ## The user
 
@@ -18,35 +8,9 @@ A household in Chennai with a reverse osmosis (RO) purifier on the kitchen wall.
 
 Second user: whoever runs a hostel or office RO plant. The arithmetic is the same at a larger daily volume.
 
-## Five candidate ideas
-
-Each idea is scored 1 to 5 on the verbatim criterion, then on four supporting checks taken from the overview text, then on originality against what is visible. The gallery for this event is unpublished, so originality is judged against Devpost project search, GitHub search, Smart India Hackathon coverage and the sibling Devpost galleries the owner has already studied.
-
-| # | Idea | Environmental Impact (verbatim) | Measurable with public data | Identifiable firsthand user | 2 minute demo | No paid API, no card | Originality | Total /30 |
-|---|---|---|---|---|---|---|---|---|
-| A | **Michaneer**: an RO reject-water bucket test that measures a household's own recovery ratio and turns it into a ranked reuse and right-sizing plan | 5 | 5 | 5 | 5 | 5 | 4 | **29** |
-| B | Hostel mess headcount forecaster to cut cooked-food waste | 4 | 2 | 4 | 3 | 5 | 3 | 21 |
-| C | Chennai rooftop rain capture planner from daily rainfall history | 3 | 4 | 3 | 4 | 5 | 2 | 21 |
-| D | College commute mode-shift planner (MTC bus, Metro, MRTS) with CO2 per trip | 3 | 3 | 4 | 4 | 5 | 2 | 21 |
-| E | E-waste matcher to Tamil Nadu Pollution Control Board authorised recyclers | 3 | 2 | 3 | 4 | 5 | 2 | 19 |
-
-### Why each score
-
-**A. Michaneer.** Impact 5: the output is litres of drinking-grade municipal or ground water that stop going down the drain, measured on the user's own unit, before and after. Public data 5: every threshold comes from an official or standard source (BIS IS 10500:2012, BIS IS 16240:2023, MoEF&CC G.S.R. 724(E), the CPCB reject-water guidelines of 23 September 2026, FAO Irrigation and Drainage Paper 29, a Lok Sabha answer on reject volumes, the NGT order in O.A. 134/2015). User 5: a Chennai home with an RO, lived firsthand. Demo 5: one form, one result, one before and after log. Originality 4: reuse blog posts and hardware hackathon projects exist (SRM's organic filter at Smart India Hackathon 2019, a KCG College boiling unit), but no software tool we could find measures a household's own ratio and builds a plan from it. Not a perfect 5 because "reuse RO water" as advice is widely known.
-
-**B. Mess forecaster.** Impact 4, since cooked-food waste carries large emissions. But no public mess attendance data exists, so the demo would need numbers we made up, which the brief forbids. Food-waste trackers are common in student galleries.
-
-**C. Rain capture planner.** Rainwater harvesting has been mandatory for Chennai buildings since 2003, so the marginal behaviour change is small, and the output is a potential, not a measured saving. RWH calculators are plentiful.
-
-**D. Commute planner.** Carbon calculators are the most common sustainability hackathon entry. Emission factors per Chennai mode exist but the behaviour change is hard to verify within a demo.
-
-**E. E-waste matcher.** The recycler list is public, but the impact depends on a trip the user may never make, and locator maps are common entries.
-
-**Not energy.** Ainooru (the owner's LaunchPad entry) forecasts the Tamil Nadu 500 unit electricity cliff. Michaneer is about water volume and never touches electricity tariffs or units, so the two cannot be confused.
-
 ## Decision
 
-Build A, named **Michaneer** (from Tamil "michcha neer", leftover water, which is what the reject stream is).
+Build an RO reject-water bucket test, named **Michaneer** (from Tamil "michcha neer", leftover water, which is what the reject stream is).
 
 ### Name evidence (6 November 2026)
 

@@ -82,7 +82,16 @@ Python, FastAPI, Jinja2, Uvicorn, SQLite and pytest, all open source. Server-ren
 
 ## Hosted demo
 
-`modal_app.py` deploys the demo with `modal deploy modal_app.py`: a quarter CPU, 256 MB, scale to zero, `MICHANEER_HOSTED=1`. In that mode the log is per browser (a random cookie id) and in memory only.
+The live demo runs this same code with `MICHANEER_HOSTED=1` in one small Docker container (python:3.12-slim, a quarter CPU, 256 MB) on an Oracle Cloud Always Free VM, behind Caddy with a Let's Encrypt certificate. In hosted mode the log is per browser (a random cookie id) and kept in memory only.
+
+To host it yourself, any machine with Python works:
+
+```sh
+uv sync
+MICHANEER_HOSTED=1 uv run uvicorn michaneer.app:app --host 0.0.0.0 --port 8000
+```
+
+`modal_app.py` is an optional alternative for anyone with a [Modal](https://modal.com) account (`modal deploy modal_app.py`). It is not used by the live demo and is not needed to run or test the app.
 
 ## Limits
 
@@ -94,12 +103,15 @@ Python, FastAPI, Jinja2, Uvicorn, SQLite and pytest, all open source. Server-ren
 ## Layout
 
 ```
-modal_app.py    hosted demo on Modal
 michaneer/      app.py (routes), model.py (all arithmetic), store.py (SQLite log), sources.py, templates/, static/
 tests/          pytest suite
 eval/           run_eval.py and RESULTS.md
 docs/           SUBMISSION.md, DEMO.md, screenshots/
 assets/         logo.svg, logo-512.png
-DESIGN.md       idea selection and scoring
-RULES.md        hackathon rules as recorded
+DESIGN.md       design notes and the facts the app stands on
+modal_app.py    optional Modal deploy (not used by the live demo)
 ```
+
+## Licence
+
+MIT, see [LICENSE](LICENSE).

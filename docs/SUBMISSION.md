@@ -1,8 +1,6 @@
 # Devpost submission: Michaneer
 
-Everything below is ready to paste into the Green Shift Hacks project form. Deadline: 17 November 2026, 10:00 PM UTC, which is **Wednesday 18 November 2026, 03:30 IST**. Plan to submit a day early.
-
-Required by the rules (see RULES.md): a project story covering the problem, intended users, approach, expected environmental benefit, tools and limitations; all team members; a demo video or walkthrough; source code or clear build instructions.
+The text of the Green Shift Hacks project page. The brief asks for a project story covering the problem, intended users, approach, expected environmental benefit, tools and limitations; all team members; a demo video or walkthrough; and source code or clear build instructions.
 
 ## Project name
 
@@ -10,24 +8,33 @@ Michaneer
 
 ## Tagline (short pitch)
 
-A ten minute bucket test that shows how many litres your RO purifier pours down the drain, and a plan that wins them back.
+An RO purifier can send 8,212 litres a year per person down the drain. A ten minute bucket test measures yours and ranks the fixes by litres saved.
 
 ## Team members
 
-Vignesh S (solo).
+Vigneshwar L (solo).
 
 ## Links
 
 * Try it live: https://michaneer.140-245-16-129.sslip.io (press "Fill example readings", then "See my result")
-* Source code: [GITHUB REPO LINK]
+* Source code: https://github.com/vignesh2027/michaneer (MIT licence)
 * Demo video: https://youtu.be/M_3_X_DmRPQ
 * Or run it locally with three commands (see "How to run it" below). No keys or accounts needed.
 
 ## Built with
 
-python, fastapi, jinja2, uvicorn, sqlite, html, css, pytest, modal
+python, fastapi, jinja2, uvicorn, sqlite, html, css, pytest, docker, caddy, oracle-cloud
 
 ## Project story
+
+### The impact, in numbers
+
+* **8,212 litres a year down the drain for one person** with a purifier at the top of the official range (3 litres of reject for every litre purified, at the WHO figure of 7.5 litres a day for drinking and cooking).
+* **4,106 litres a year saved per person** just by bringing that unit up to the 2023 BIS minimum of 40 percent recovery, before any reuse.
+* **32,850 litres a year** in the app's built-in example family (30 litres a day, unit at 25 percent against a 40 percent label). The plan wins back all of it: 16,425 litres from a service and 16,425 litres from catching the rest for mopping and flushing.
+* **Hostel scale, as a calculation (not a measurement):** a 200-student hostel at 7.5 litres a person a day purifies 1,500 litres a day. At 25 percent recovery its RO plant sends 1,642,500 litres a year to the drain. Bringing it to the 40 percent BIS floor saves 821,250 litres a year, using the same arithmetic the app runs on a household's readings.
+
+Every one of these comes from the app's own formulas and published figures. The point of Michaneer is that a household replaces them with its own measured numbers.
 
 ### Inspiration
 
@@ -63,7 +70,7 @@ We do not claim a city-wide total, because no public count of RO purifiers in Ch
 
 ### How we built it
 
-A Python web app (FastAPI with server-rendered Jinja2 pages and one CSS file). All arithmetic is in one small module: recovery from the bucket readings, an error range from half a jug marking, reject TDS from a salt balance, and the plan. Every threshold in the code points to a source on the app's Sources page. Test readings are stored in a local SQLite file. There are no external services, no keys and no network calls when it runs. The public demo runs the same code on one small Modal container; there the log is kept in memory for each browser and never written to disk.
+A Python web app (FastAPI with server-rendered Jinja2 pages and one CSS file). All arithmetic is in one small module: recovery from the bucket readings, an error range from half a jug marking, reject TDS from a salt balance, and the plan. Every threshold in the code points to a source on the app's Sources page. Test readings are stored in a local SQLite file. There are no external services, no keys and no network calls when it runs. The public demo runs the same code in one small Docker container on an Oracle Cloud Always Free VM; there the log is kept in memory for each browser and never written to disk.
 
 ### Evaluation
 
@@ -108,7 +115,7 @@ The event period is 19 October to 17 November 2026. Michaneer is a new repositor
 
 Public sources only, all credited in the app and README: BIS IS 10500:2012; BIS IS 16240:2023; MoEF&CC G.S.R. 724(E) of 4 October 2021; CPCB reject-water guidelines of 23 September 2026; Lok Sabha Unstarred Question 778 of 17 September 2020; NGT O.A. 134/2015 orders of 20 May 2019 and 1 December 2021 and the Supreme Court stay reported 1 March 2022; FAO Irrigation and Drainage Paper 29 Rev. 1; WHO, Domestic Water Quantity, Service Level and Health (2003).
 
-[AI-ASSISTANCE CREDITS LINE]
+Credits: the narration in the demo video is a synthetic voice, made with Kokoro 82M text-to-speech (open source). The app footage is a real screen recording of the hosted demo with the built-in example readings. The video was recorded on an earlier host, so the address on its closing card is out of date; the live demo is at https://michaneer.140-245-16-129.sslip.io. Much of the code and documentation was written with the help of AI coding assistants, and I directed, reviewed and tested all of it.
 
 ## How to run it
 
@@ -128,7 +135,3 @@ Open http://127.0.0.1:8000, press "Fill example readings", then "See my result".
 4. `4-kitchen-card.png`: the printable English and Tamil kitchen card.
 5. `5-sources.png`: every threshold and where it comes from.
 6. `6-result-mobile.png`: the result on a phone-width screen.
-
-## Optional but strongest: the owner's own bucket test
-
-If there is time before submitting, run the test on the purifier at home, save "before" in the log, and if the unit gets serviced or the reject hose goes into a bucket, save "after". Add a short section here titled "Our own purifier" with the real readings, kept separate from the evaluation figures above. Do not put any reading in the story that was not actually measured.
